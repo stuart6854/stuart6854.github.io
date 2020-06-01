@@ -1,5 +1,8 @@
---- --- @import "{{ site.theme }}";
+---
+---
 
-.main-content {
-    background-color: rgb(26, 26, 26);
+@import "{{ site.theme }}";
+
+body {
+  background-color: #191919;
 }
