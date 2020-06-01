@@ -40,7 +40,7 @@ Typically, assembly languages consist of 3 types of instruction statements which
 - Data definitions
 - Assembly directives
 
-### Example Code
+### x86 Assembly Example Code
 
 The following high-level C++ code:
 
@@ -106,6 +106,117 @@ main:
 ```
 
 When compiled into assembly language (no optimisation).
+
+Another (commented) example:
+
+```assembly
+_foobar:
+    ; ebp must be preserved across calls. Since
+    ; this function modifies it, it must be
+    ; saved.
+    ;
+    push    ebp
+
+    ; From now on, ebp points to the current stack
+    ; frame of the function
+    ;
+    mov     ebp, esp
+
+    ; Make space on the stack for local variables
+    ;
+    sub     esp, 16
+
+    ; eax <-- a. eax += 2. then store eax in xx
+    ;
+    mov     eax, DWORD PTR [ebp+8]
+    add     eax, 2
+    mov     DWORD PTR [ebp-4], eax
+
+    ; eax <-- b. eax += 3. then store eax in yy
+    ;
+    mov     eax, DWORD PTR [ebp+12]
+    add     eax, 3
+    mov     DWORD PTR [ebp-8], eax
+
+    ; eax <-- c. eax += 4. then store eax in zz
+    ;
+    mov     eax, DWORD PTR [ebp+16]
+    add     eax, 4
+    mov     DWORD PTR [ebp-12], eax
+
+    ; add xx + yy + zz and store it in sum
+    ;
+    mov     eax, DWORD PTR [ebp-8]
+    mov     edx, DWORD PTR [ebp-4]
+    lea     eax, [edx+eax]
+    add     eax, DWORD PTR [ebp-12]
+    mov     DWORD PTR [ebp-16], eax
+
+    ; Compute final result into eax, which
+    ; stays there until return
+    ;
+    mov     eax, DWORD PTR [ebp-4]
+    imul    eax, DWORD PTR [ebp-8]
+    imul    eax, DWORD PTR [ebp-12]
+    add     eax, DWORD PTR [ebp-16]
+
+    ; The leave instruction here is equivalent to:
+    ;
+    ;   mov esp, ebp
+    ;   pop ebp
+    ;
+    ; Which cleans the allocated locals and restores
+    ; ebp.
+    ;
+    leave
+    ret
+```
+
+[Function Prologue](https://en.wikipedia.org/wiki/Function_prologue#Epilogue)
+
+### My Custom Assembly Language
+
+My own custom assembly language is based, somewhat, on x86 Assembly.
+
+#### Pointers
+
+```assembly
+fp      ; Frame pointer
+sp      ; Stack pointer
+```
+
+#### Registers
+
+```assembly
+rv      ; The return value register
+pv1     ; The first parameter value
+pv2     ; The second parameter value
+```
+
+#### Syntax
+
+```assembly
+#directive      ; A hash symbol denotes a directive. Directives are used to by the assembler to during preprocessing. It could be used to set a setting, etc.
+
+function_name:
+        ; A identifier and colon declares a function or label
+
+label_abc:
+        ; Instructions here
+
+function_with_params(int, float):
+        ; Instructions here
+        mov     sf+1, pv1       ; Move the parameter values from the register to the stack frames local data
+        mov     sf+2, pv2
+        mov     rv, sf+1
+        add     rv, sf+2        ; Adds the two params and leaves the result in the return register
+
+main:
+        ; This function is the programs entry point
+
+.label_name:
+        ; Although not required, it should be considered standard for labels to be prefixed with a dot
+```
 
 ## Assembler
 
