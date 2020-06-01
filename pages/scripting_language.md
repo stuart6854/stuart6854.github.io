@@ -45,7 +45,7 @@ Typically, assembly languages consist of 3 types of instruction statements which
 The following high-level C++ code:
 
 ```c++
-int get_number()
+int get_number(int y)
 {
     int x = 0;
 
@@ -57,21 +57,22 @@ int get_number()
     else
         x -= 5;
 
-    return x;
+    return x + y;
 }
 
 int main()
 {
-    return get_number();
+    return get_number(20) - 5;
 }
 ```
 
 Becomes:
 
 ```assembly
-get_number():
+get_number(int):
         push    rbp
         mov     rbp, rsp
+        mov     DWORD PTR [rbp-20], edi
         mov     DWORD PTR [rbp-4], 0
         mov     DWORD PTR [rbp-8], 0
 .L3:
@@ -89,14 +90,17 @@ get_number():
 .L4:
         sub     DWORD PTR [rbp-4], 5
 .L5:
-        mov     eax, DWORD PTR [rbp-4]
+        mov     edx, DWORD PTR [rbp-4]
+        mov     eax, DWORD PTR [rbp-20]
+        add     eax, edx
         pop     rbp
         ret
 main:
         push    rbp
         mov     rbp, rsp
-        call    get_number()
-        nop
+        mov     edi, 20
+        call    get_number(int)
+        sub     eax, 5
         pop     rbp
         ret
 ```
