@@ -5,4 +5,22 @@
 
 body {
   background-color: #191919;
+  color: #d0d0d0;
+}
+
+.main-content h1 .main-content h2,
+.main-content h3,
+.main-content h4,
+.main-content h5,
+.main-content h6 {
+  color: #41b77c;
+}
+
+a {
+  color: #52a3f5;
+}
+
+.main-content code {
+  background-color: #424242;
+  color: #cecece;
 }
