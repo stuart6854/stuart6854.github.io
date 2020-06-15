@@ -34,8 +34,6 @@ while b ≠ 0
 return a
 ```
 
-</div>
-
 <div style="clear: both;" ></div>
 
 ## Tree Terminology
