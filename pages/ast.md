@@ -22,9 +22,7 @@ An AST enables us to step through the structure of a program and report any issu
 
 ### Wikipedia Example
 
-<div class="wiki-example">
 <image align="right" style="padding: 10px" width= "450px" src="../images/ast_wikipedia_example.png" alt="Wikipedia AST Example" />
-<p>
 An abstract syntax tree for the following code for the Euclidean algorithm:
 
 ```c
@@ -35,8 +33,6 @@ while b ≠ 0
     b := b − a
 return a
 ```
-
-</p>
 
 </div>
 
