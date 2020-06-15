@@ -22,6 +22,13 @@ An AST enables us to step through the structure of a program and report any issu
 
 ### Wikipedia Example
 
+<aside>
+<p>A. Starting with the full tree, evaluate the bottom-most operation, <code>2 * 3</code>.</p>
+<p>B. Now we can evaluate the <code>+</code>.</p>
+<p>C. Finally the <code>-</code>.</p>
+<p>D. The final answer.</p>
+</aside>
+
 <image align="right" style="padding: 10px" width= "450px" src="../images/ast_wikipedia_example.png" alt="Wikipedia AST Example" />
 An abstract syntax tree for the following code for the Euclidean algorithm:
 
