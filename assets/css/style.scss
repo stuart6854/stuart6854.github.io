@@ -60,6 +60,16 @@ a {
   color: #125ca7;
 }
 
+a.backToTop {
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  padding: 10px;
+  background-color: #3f3f3f;
+  color: #ffffff;
+}
+
 .main-content code {
   background-color: #424242;
   color: #cecece;
