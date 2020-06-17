@@ -6,9 +6,22 @@
 
 The first phase when translating any language is _lexical analysis_. Lexical analysis, or _lexing_ for short, is the process of breaking up the source file into its constituents "words". These words, in the context if lexing, are known as _lexemes_. For example, consider the following line of code:
 
-{% highlight nasm %}
-Move    Sum, X      ; Perform the addition
-{% endhighlight %}
+```nasm
+mov    Sum, X      ; Perform the addition
+```
+
+```c++
+class Rabbit
+{
+public:
+    void say_hello();
+};
+
+void Rabbit::say_hello()
+{
+    std::cout << "Hello!" << std::endl;
+}
+```
 
 The line contains four separate lexemes; _Mov_, _Sum_, (the comma), and _X_ (note that the whitespace and comments are automatically stripped away and do not count). See how much easier this makes the task. Right of the bat, the lexer allows the user to fill their code with as much whitespace and commenting as they want, and you never have to know about it. As long as the lexer can filter this content out and simply provide the lexemes, you get each isolated piece of code presented in a clean, clutter-free manner. But the lexer never does more than this.
 
@@ -17,7 +30,7 @@ The unfiltered source code, as it enters your assembler's processing pipeline, i
 In addition to isolating and extracting lexemes, the real job of the lexer is to convert the lexeme stream to a _token stream_. _Tokens_, unlike lexemes, are not strings at all; rather, they're simple codes (usually implemented as integer) that tell you what exactly the lexeme is. For example, the line of code used in the last example, after being converted to a lexeme stream , looks like this (note that for simplicity everything is converted to uppercase by the lexer):
 
 {% highlight nasm %}
-    MOV SUM , X
+MOV SUM , X
 {% endhighlight %}
 
 The new stream of lexemes is indeed easier to process, but take a look at the token stream (each element in the following stream is actually a numeric constant):
@@ -28,7 +41,7 @@ TOKEN_TYPE_INSTR TOKEN_TYPE_INDENT TOKEN_TYPE_COMMA TOKEN_TYPE_IDENT
 
 Just for reference, it might be easier to mentally process the token stream when it's listed vertically:
 
-{% highlight %}
+{% highlight c %}
 TOKEN_TYPE_INSTR
 TOKEN_TYPE_INDENT
 TOKEN_TYPE_COMMA
@@ -51,15 +64,17 @@ In a nutshell, the read groups of tokens until it finds a pattern between them t
 
 Imagine this fragment of code:
 
-{% highlight %}
+{% highlight c %}
 Func MyFunc {
 {% endhighlight %}
 
 Ass you can see, this is the beginning of a function declaration. It's cut of just before the function's code begins, because all you're worried about right now is the declaration itself. After the lexer performs its initial breakdown of the character stream, the tokenizer will go to work examining the incoming lexemes and convert them to a token stream. The token stream for the previous line of code will consist of:
 
-    TOKEN_TYPE_FUNC
-    TOKEN_TYPE_IDENT
-    TOKEN_TYPE_BRACKET
+{% highlight c %}
+TOKEN_TYPE_FUNC
+TOKEN_TYPE_IDENT
+TOKEN_TYPE_BRACKET
+{% endhighlight %}
 
 Notice that you can reserve an entire token simply for the _Func_ directive. This is common among reserved words; for example, a C tokenizer would consider the _if_, _while_, and _for_ keywords to each be separate tokens. Anyway, with the tokens identified, the parser will be invoked and the second step towards assembly will being.
 
@@ -67,25 +82,31 @@ Notice that you can reserve an entire token simply for the _Func_ directive. Thi
 The parser begins by requesting the first token in the stream from the tokenizer, which will return <i>TOKEN_TYPE_FUNC</i>. Based on this, the parser will immediately realise that a function declaration must be starting. This is how you predict which tokens must follow based on the first one read. With the knowledge of <i>Wolf Script</i> Assembly, we know that a function declaration consists of the _Func_ keyword, and identifier that represents the function's name, and the open bracket symbol. So, the following two token <i>must</i> be <i>TOKEN_TYPE_IDENT</i> and <i>TOKEN_TYPE_OPEN_BRACKET</i>. If either of these tokens is incorrect, or if they appear in the wrong order, you've detected a syntax error and can halt the assembly process to alert the users. If these two tokens are successfully read, on the other hand, you know the function declaration is valid and can record the function in some form before moving on to parse the next series of tokens.
 </p>
 Pseudo-code, which illustrates the basic parsing process for a function declaration:
-
-    Token CurrToken = GetNextToken();                   // Read the next token from the stream
-    if(CurrToken == TOKEN_TYPE_FUNC)                    // Is a function declaration starting?
+{% highlight c++ %}
+// Read the next token from the stream
+Token CurrToken = GetNextToken();
+// Is a function declaration starting?
+if(CurrToken == TOKEN_TYPE_FUNC)
+{
+    // Look for a valid identifier
+    if(GetNextToken() == TOKEN_TYPE_IDENT)
     {
-        if(GetNextToken() == TOKEN_TYPE_IDENT)              // Look for a valid identifier
+        // The current lexeme is the function name, so save it
+        string FuncName = GetCurrLexeme();
+
+        // Make sure the open bracket is present
+        if(GetNextToken() != TOKEN_TYPE_OPEN_BRACKET)
         {
-            string FuncName = GetCurrLexeme();              // The current lexeme is the
-                                                            // function name, so save it
-            if(GetNextToken() != TOKEN_TYPE_OPEN_BRACKET)   // Make sure the open bracket is present
-            {
-                Error("'{' expected!");
-            }
-        }
-        else
-        {
-            Error("Identifier expected!");
+            Error("'{' expected!");
         }
     }
-    // Check for remaining tokens
+    else
+    {
+        Error("Identifier expected!");
+    }
+}
+// Check for remaining tokens
+{% endhighlight %}
 
 Once you've properly parsed a given group of tokens, you're all set to translate it. After parsing an instruction, for example, you can use the instruction lookup table to verify its operands and convert it to machine code. In the case of directives like _Func_, you add a new entry to the function table (which, if you recall stores information on the script's functions, like their entry points, parameter counts, and local data size).
 
@@ -101,10 +122,19 @@ Whitespace is usually defined as non-visible characters such as spaces, tabs, an
 
 A common whitespace operation is _trimming_, also known as _clamping_ or _chomping_ wherein the whitespace on either or both side of a string is removed. Eg.
 
-    "    This is a padded string.    "
-    "This is a padded string.    "          // Left trim removes all whitespace on a strings left
-    "    This is a padded string."          // Right trim removes all whitespace on a strings right
-    "This is a padded string."              // Full trim is the same as both a Left and Right trim
+{% highlight c++ %}
+// Original string
+"    This is a padded string.    "
+
+// Left trim removes all whitespace on a strings left
+"This is a padded string.    "
+
+// Right trim removes all whitespace on a strings right
+"    This is a padded string."
+
+// Full trim is the same as both a Left and Right trim
+"This is a padded string."
+{% endhighlight %}
 
 Trimming is often done by or before the lexing phase to make sure extraneous whitespace if removed early in the pipeline.
 
@@ -112,7 +142,10 @@ Strings and characters can be group and categorized in a number of way. For exam
 
 This sort of classification can be extended to strings as well.
 
-    "1234" or "123456"      // Numeric string
+{% highlight c++ %}
+// Numeric string
+"1234" or "123456"
+{% endhighlight %}
 
 By prefixing an optional negation sign (-) to a numeric string, you can easily extend the class of numeric string to _signed_ numeric strings.
 
