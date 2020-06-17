@@ -4,6 +4,26 @@
 @import "{{ site.theme }}";
 @import "gruvbox.css"; // Syntax highlighting
 
+.page-header {
+  border-top: solid 4px #000;
+  margin: 0;
+  padding: 5px 0;
+  background-color: #eee;
+  background-image: none;
+  text-align: left;
+}
+
+.page-header .wrapper {
+  max-width: 800 - (10px * 2);
+  margin: 0 auto;
+}
+
+.project-name,
+.project-name:visited {
+  font-size: 26px;
+  color: #000;
+}
+
 body {
   background-color: #191919;
   color: #252525;
