@@ -68,3 +68,98 @@ Quick review of tree terminology:
 - A node with one or more children that is not the root is called an _interior_ node.
 - Child nodes can also be complete _subtrees_.
 
+## Representation
+
+> This is just an example for an imperative/c-like language
+
+Typically, the top-hierarchy can bt split into two supertypes:
+
+- Expression
+- Statement
+
+The program is a list of statements, The program being a statement itself.
+
+You most probably want to have a class for each type of statement that extends from the statement-base class.
+
+Typical list of statements:
+
+- Statement Block (a list of statements)
+- If/Else
+- For (for loop with its initialisation statements, check expression, increment statements and block)
+- While (check expression and block)
+- Variable Declaration
+- Assignment (includes +=, -=, ++, --, etc. You can wrap all in one class with an operator field, a LVal and an RVal)
+- Function call (used on its own/unneeded return)
+
+Typical list of expressions:
+
+- Binary Operation (anything that has 2 operands and 1 operator, ie. + - * / % | & && || == < > <= >=)
+- Unary Operation (anything that has 1 operand and 1 operator, ie. ~ !)
+- Function call (non-void ones/used as expression)
+- Conditional Expression (exp ? true_value : false_value)
+
+### Visitor Pattern
+
+> In object-orientated programming and software engineering, the visitor design pattern is a way of separating an algorithm from an object structure on which it operates. A practical result of this separation is the ability to add new operations to existing object structures without modifying the structures. It is one way to follow the open/closed principle.
+
+Rather than spreading the code for a given traversal throughout the node's classes, the code is concentrated in a particular traversal class. This code is called by arranging for each node to
+
+1. Accept a call from a visitor that performs the traversal
+2. Call the visitor back using a method in that visitor that is customised to the node
+
+#### Example Code
+
+Nodes:
+{% highlight c++ %}
+class INode
+{
+public:
+  virtual void accept(IVisitor& visitor_) = 0;
+}
+
+class IntNode : public INode
+{
+public:
+  void accept(IVisitor& visitor_) override
+  {
+    visitor_.visit(*this);
+  }
+}
+
+class WhileNode : public INode
+{
+public:
+  void accept(IVisitor& visitor_) override
+  {
+    visitor_.visit(*this);
+  }
+}
+
+{% endhighlight %}
+Visitor:
+{% highlight c++ %}
+class IVisitor
+{
+public:
+  void visit(IntNode& node_) = 0;
+  void visit(WhileNode& node_) = 0;
+}
+
+class ConcreteVisitor : public IVisitor
+{
+public:
+  void visit(IntNode& node_) override
+  {
+    // Do something useful
+  }
+
+  void visit(WhileNode& node_) override
+  {
+    // Do something useful, then...
+    node_.exprNode.accept(*this);
+    node_.block.accept(*this);
+  }
+
+}
+
+{% endhighlight %}
