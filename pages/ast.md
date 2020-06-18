@@ -98,6 +98,39 @@ Typical list of expressions:
 - Function call (non-void ones/used as expression)
 - Conditional Expression (exp ? true_value : false_value)
 
+Example Pseudocode:
+
+{% highlight java %}
+class IfElse extends Statement
+{
+  Expression condition;
+  Statement ifBranch;
+  Statement elseBranch;
+}
+
+class BinaryOp extends Expression
+{
+  BinaryOperator operator;  // +, -, *, etc.
+  Expression left;          // Left operand
+  Expression right;         // Right operand
+}
+
+class StatementBlock extends Statement
+{
+  List<Statement> statements;
+}
+
+class Assignment extends Statement
+{
+  AssignmentOperator assignOp;  // =, +=, -=, etc.
+  // The lValue cannot be an arbitrary expression,
+  // you will usually have a specific type for it
+  LVal lValue;                  // Left Value
+  Expression rValue;            // Right Value
+}
+
+{% endhighlight %}
+
 ### Visitor Pattern
 
 > In object-orientated programming and software engineering, the visitor design pattern is a way of separating an algorithm from an object structure on which it operates. A practical result of this separation is the ability to add new operations to existing object structures without modifying the structures. It is one way to follow the open/closed principle.
