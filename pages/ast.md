@@ -196,3 +196,56 @@ public:
 }
 
 {% endhighlight %}
+
+## Expression Parsing
+
+### Operator Precedence
+
+- **Precedence** determines which operator is evaluated first in an expression containing a mixture of different operators. Operators with higher precedence are evaluated before those with lower precedence.
+
+- **Associativity** determines which operator is evaluated first in a series of the same operator. When an operator is **left-associative** (think "left-to-right"), operators in the left evaluate before those of the right.
+
+| Name           | Operators | Associates |
+| -------------- | --------- | ---------- |
+| Unary          | ! -       | Right      |
+| Multiplication | / *       | Left       |
+| Addition       | - +       | Left       |
+| Comparison     | > >= < <= | Left       |
+| Equality       | == !=     | Left       |
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Operators</th>
+      <th>Associates</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Unary</td>
+      <td>! -</td>
+      <td>Right</td>
+    </tr>
+    <tr>
+      <td>Multiplication</td>
+      <td>/ *</td>
+      <td>Left</td>
+    </tr>
+    <tr>
+      <td>Addition</td>
+      <td>- +</td>
+      <td>Left</td>
+    </tr>
+    <tr>
+      <td>Comparison</td>
+      <td>> >= < <=</td>
+      <td>Left</td>
+    </tr>
+    <tr>
+      <td>Equality</td>
+      <td>== !=</td>
+      <td>Left</td>
+    </tr>
+  </tbody>
+</table>
