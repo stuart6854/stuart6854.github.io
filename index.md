@@ -15,3 +15,5 @@ layout: default
 [Compiling](pages/compiling.html)
 
 [Custom Scripting Language](pages/scripting_language.html)
+
+[Wolf Script](pages/wolf_script.md)
