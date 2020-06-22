@@ -6,6 +6,8 @@ layout: default
 ---
 # Contents
 
+[Programming](pages/programming_languages.md)
+
 [Parsing / Lexing](pages/parsing_lexing.html)
 
 [Abstract Syntax Tree](pages/ast.html)
