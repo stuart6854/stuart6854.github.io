@@ -100,8 +100,8 @@ primary         -> "true" | "false" | "nil"
                  | IDENTIFIER
                  | "(" expression ")" ;
 
+parameters      -> IDENTIFIER ":" TYPE ( "," IDENTIFIER ":" TYPE )* ;
 arguments       -> expression ( "," expression )* ;
-parameters      -> IDENTIFIER ( "," IDENTIFIER )* ;
 ```
 
 ## Syntax
@@ -111,7 +111,7 @@ class Animal
 {
     var age : int;
 
-    func set_age(int age_) : void
+    func set_age(age_ : int) : void
     {
         age = age_;
     }
