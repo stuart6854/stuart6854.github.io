@@ -64,8 +64,8 @@ declaration     -> classDecl
                  | varDecl
                  | statement ;
 classDecl       -> "class" IDENTIFIER "{" ( varDecl | funDecl )* "}" ;
-funDecl         -> TYPE IDENTIFIER "(" parameters? ")" block ;
-varDecl         -> TYPE IDENTIFIER ( "=" expression )? ";" ;
+funDecl         -> "func" IDENTIFIER "(" parameters? ")" ":" TYPE block ;
+varDecl         -> "var" IDENTIFIER ":" TYPE ( "=" expression )? ";" ;
 
 statement       -> exprStmt
                  | forStmt
@@ -109,22 +109,27 @@ parameters      -> IDENTIFIER ( "," IDENTIFIER )* ;
 ```c#
 class Animal
 {
-    int age;
+    var age : int;
 
-    void set_age(int age_)
+    func set_age(int age_) : void
     {
         age = age_;
     }
 
-    void sit()
+    func get_age() : int
+    {
+      return age;
+    }
+
+    func sit() : void
     {
         print "Animal sitting.";
     }
 }
 
-class Dog
+class Dog : Animal
 {
-    void sit()
+    func sit() : void
     {
         print "Dog sitting.";
     }
@@ -132,7 +137,7 @@ class Dog
 
 int main()
 {
-    Animal pet = Dog();
+    var pet : Animal = Dog();
     pet.set_age(5);
     pet.sit();
 
