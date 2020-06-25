@@ -64,3 +64,13 @@ string z = x + y;  // "12"
 ```
 
 Note that only some type conversion work. In the example above, int x was converted to a string.
+
+## Operator Precedence
+
+- **Precedence** determines which operator is evaluated first in an expression containing a mixture of different operators. Operators with higher precedence are evaluated before those with lower precedence.
+
+- **Associativity** determines which operator is evaluated first in a series of the same operator. When an operator is **left-associative** (think "left-to-right"), operators in the left evaluate before those of the right.
+
+### C# Operator Precedence Table
+
+{% include cs_operator_table.html %}

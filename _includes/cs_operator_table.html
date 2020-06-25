@@ -1,0 +1,120 @@
+<table>
+  <thead>
+    <tr>
+      <th>Precedence</th>
+      <th>Operator</th>
+      <th>Description</th>
+      <th>Associativity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>
+        <code>[</code> <code>]</code> <code>(</code> <code>)</code>
+        <code>.</code> <code>-></code> <code>++</code> <code>--</code>(postfix)
+      </td>
+      <td>Expression</td>
+      <td>Left-to-right</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>
+        <strong>sizeof</strong> <code>&</code> <code>*</code> <code>+</code>
+        <code>-</code> <code>~</code> <code>!</code> <code>++</code>
+        <code>--</code> (prefix)
+      </td>
+      <td>Unary</td>
+      <td>Right-to-left</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td><em>typecasts</em></td>
+      <td>Unary</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td><code>*</code> <code>/</code> <code>%</code></td>
+      <td>Multiplicative</td>
+      <td>Left-to-right</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td><code>+</code> <code>-</code></td>
+      <td>Additive</td>
+      <td>Left-to-right</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td><code><<</code> <code>>></code></td>
+      <td>Bitwise shift</td>
+      <td>Left-to-right</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td><code><</code> <code>></code> <code><=</code> <code>>=</code></td>
+      <td>Relational</td>
+      <td>Left-to-right</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td><code>==</code> <code>!=</code></td>
+      <td>Equality</td>
+      <td>Left-to-right</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td><code>&</code></td>
+      <td>Bitwise-AND</td>
+      <td>Left-to-right</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td><code>^</code></td>
+      <td>Bitwise-exclusive-OR</td>
+      <td>Left-to-right</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td><code>|</code></td>
+      <td>Bitwise-inclusive-OR</td>
+      <td>Left-to-right</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td><code>&&</code></td>
+      <td>Logical-AND</td>
+      <td>Left-to-right</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td><code>||</code></td>
+      <td>Logical-OR</td>
+      <td>Left-to-right</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td><code>? :</code></td>
+      <td>Conditional-expression</td>
+      <td>Left-to-right</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>
+        <code>=</code> <code>*=</code> <code>/=</code> <code>%=</code>
+        <code>+=</code> <code>_=</code> <code><<=</code> <code>>>=</code>
+        <code>&=</code> <code>^=</code>
+        <code>|=</code>
+      </td>
+      <td>Simple and compound assignment</td>
+      <td>Right-to-left</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td><code>,</code></td>
+      <td>Sequential evaluation</td>
+      <td>Right-to-left</td>
+    </tr>
+  </tbody>
+</table>
