@@ -1,0 +1,128 @@
+/* Element Defaults */
+
+p {
+  margin-bottom: 20px;
+}
+
+a {
+  color: inherit;
+}
+
+ol {
+  list-style: none;
+  counter-reset: li;
+}
+
+ol li {
+  counter-increment: li;
+}
+
+ol li::before {
+  content: counter(li);
+  position: absolute;
+  right: calc(100% + 10px);
+  color: $accent;
+  display: inline-block;
+  text-align: right;
+}
+
+ol,
+ul {
+  margin-left: 30px;
+  padding: 0;
+}
+
+ol li,
+ul li {
+  position: relative;
+}
+
+blockquote {
+  border-top: 1px solid $accent;
+  border-bottom: 1px solid $accent;
+  margin: 40px 0;
+  padding: 25px;
+}
+
+blockquote p:last-of-type {
+  margin-bottom: 0;
+}
+
+blockquote p:first-of-type {
+  margin-top: 0;
+}
+
+blockquote p {
+  position: relative;
+}
+
+blockquote p:first-of-type::before {
+  content: ">";
+  display: block;
+  position: absolute;
+  left: -25px;
+  color: $accent;
+}
+
+table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+  margin: 40px 0;
+}
+
+table,
+td,
+th {
+  border: 1px dashed $accent;
+  padding: 10px;
+}
+
+th {
+  color: $accent;
+}
+
+pre {
+  background: transparent !important;
+  padding: 20px 10px;
+  margin: 40px 0;
+  font-size: 0.95rem;
+  overflow: auto;
+  border-top: 1px solid hsla(0, 0%, 100%, 0.1);
+  border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+}
+
+pre code {
+  background: none !important;
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  border: none;
+}
+
+code,
+kbd {
+  font-family: Fira Code, Monaco, Consolas, monspace;
+  font-feature-settings: normal;
+  background: rgba(255, 168, 106, 0.2);
+  color: $accent;
+  padding: 1px 6px;
+  margin: 0 2px;
+  font-size: 0.95rem;
+}
+
+figure {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+mark {
+  background: $accent;
+  color: $background;
+}
+
+*,
+::after,
+::before {
+  box-sizing: inherit;
+}

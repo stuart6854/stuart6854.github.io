@@ -1,4 +1,6 @@
-# Wolf Script
+---
+title: "WolfScript"
+---
 
 ## The WolfScript Language
 

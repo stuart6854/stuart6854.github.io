@@ -92,11 +92,12 @@ Typical list of statements:
 - Function call (used on its own/unneeded return)
 
 Typical list of expressions:
-
-- Binary Operation (anything that has 2 operands and 1 operator, ie. + - * / % | & && || == < > <= >=)
-- Unary Operation (anything that has 1 operand and 1 operator, ie. ~ !)
-- Function call (non-void ones/used as expression)
-- Conditional Expression (exp ? true_value : false_value)
+<ul>
+<li>Binary Operation (anything that has 2 operands and 1 operator, ie. + - * / % | & && || == < > <= >=)</li>
+<li>Unary Operation (anything that has 1 operand and 1 operator, ie. ~ !)</li>
+<li>Function call (non-void ones/used as expression)</li>
+<li>Conditional Expression (exp ? true_value : false_value)</li>
+</ul>
 
 Example Pseudocode:
 
