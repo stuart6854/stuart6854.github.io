@@ -95,7 +95,8 @@ equality        -> comparison ( ( "!=" | "==" ) comparison )* ;
 comparison      -> addition ( ( ">" | ">=" | "<" | "<=" ) addition )* ;
 addition        -> multiplication ( ( "-" | "+" ) multiplication )* ;
 multiplication  -> unary ( ( "/" | "*" ) unary )* ;
-unary           -> ("!" | "-" ) unary | call ;
+unary_prefix    -> ("!" | "-" | "++" | "--" ) unary_prefix | unary_postfix ;
+unary_postfix   -> unary_postfix ( "++" | "--" ) | call ;
 call            -> primary ( "(" arguments? ")" )* ;
 primary         -> "true" | "false" | "nil"
                  | NUMBER | STRING

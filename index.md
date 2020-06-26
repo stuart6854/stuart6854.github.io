@@ -12,6 +12,8 @@ layout: default
 
 [Abstract Syntax Tree](pages/ast.html)
 
+[Semantic Analysis](pages/semantic_analysis.html)
+
 [Compiling](pages/compiling.html)
 
 [Custom Scripting Language](pages/scripting_language.html)
