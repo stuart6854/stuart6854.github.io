@@ -6,6 +6,8 @@ layout: default
 ---
 # Contents
 
+[Game Development](pages/game-dev.md)
+
 [Programming](pages/programming_languages.md)
 
 [Parsing / Lexing](pages/parsing_lexing.html)
