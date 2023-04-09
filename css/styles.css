@@ -10974,6 +10974,8 @@ section.resume-section .resume-section-content {
 .projects-column {
   float: left;
   width: 33.33%;
+  margin-right: 50px;
+  padding: 10px;
 }
 
 /* Clear floats after the columns */
